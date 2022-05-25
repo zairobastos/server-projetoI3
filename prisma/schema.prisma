@@ -13,9 +13,29 @@ datasource db {
 model Usuario {
     id     String  @id @default(uuid())
     nome   String
-    email  String
+    email  String  @unique
     senha  String
     imagem String?
 
     @@map("usuarios")
+}
+
+model Time {
+    id         String  @id @default(uuid())
+    nome       String
+    abreviacao String
+    escudo     String?
+
+    @@map("times")
+}
+
+model Jogador {
+    id      String  @id @default(uuid())
+    nome    String
+    posicao String
+    numero  Int
+    imagem  String?
+    timeId  String?
+
+    @@map("jogadores")
 }
