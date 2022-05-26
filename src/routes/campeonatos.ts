@@ -5,4 +5,6 @@ const router = Router();
 
 router.get("/", Campeonato.paginaCampeonato);
 
+router.post("/criarCampeonato", Campeonato.criarCampeonato);
+
 export default router;

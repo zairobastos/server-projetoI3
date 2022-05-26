@@ -39,3 +39,23 @@ model Jogador {
 
     @@map("jogadores")
 }
+
+model Campeonato {
+    id        String  @id @default(uuid())
+    nome      String
+    descricao String
+    premiacao String
+    logo      String?
+    situacao  Opcao   @default(ABERTO)
+    qtdTimes  Int
+    userId    String?
+
+    @@map("campeonatos")
+}
+
+enum Opcao {
+    INICIADO
+    ABERTO
+    FINALIZADO
+    CANCELADO
+}
