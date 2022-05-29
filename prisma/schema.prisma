@@ -33,7 +33,7 @@ model Jogador {
     id      String  @id @default(uuid())
     nome    String
     posicao String
-    numero  Int
+    numero  String
     imagem  String?
     timeId  String?
 
@@ -58,4 +58,18 @@ enum Opcao {
     ABERTO
     FINALIZADO
     CANCELADO
+}
+
+model Partida {
+    id           String @id @default(uuid())
+    data         String
+    horario      String
+    local        String
+    campeonatoId String
+    time1Id      String
+    time2Id      String
+    placar1      Int
+    placar2      Int
+
+    @@map("partidas")
 }

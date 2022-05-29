@@ -9,7 +9,7 @@ type Time = {
 type Jogador = {
 	nome: string;
 	posicao: string;
-	numero: number;
+	numero: string;
 	imagem: string;
 	timeId: string;
 };

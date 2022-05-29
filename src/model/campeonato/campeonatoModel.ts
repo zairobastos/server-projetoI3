@@ -47,3 +47,48 @@ export const Campeonatos = {
 		return cad;
 	},
 };
+
+type Partida = {
+	data: string;
+	horario: string;
+	local: string;
+	campeonatoId: string;
+	time1Id: string;
+	time2Id: string;
+	placar1: number;
+	placar2: number;
+};
+
+export const Partidas = {
+	setPartida: async ({
+		data,
+		horario,
+		local,
+		campeonatoId,
+		time1Id,
+		time2Id,
+		placar1,
+		placar2,
+	}: Partida) => {
+		let cad = await prisma.partida
+			.create({
+				data: {
+					data,
+					horario,
+					local,
+					campeonatoId,
+					time1Id,
+					time2Id,
+					placar1,
+					placar2,
+				},
+			})
+			.then((partida) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return cad;
+	},
+};
