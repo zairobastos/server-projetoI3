@@ -47,3 +47,12 @@ export const criarPartida = async (req: Request, res: Response) => {
 		? res.status(201).send({ message: "Partida criada com sucesso!" })
 		: res.status(400).send({ message: "Erro ao criar partida!" });
 };
+
+export const listarCampeonatos = async (req: Request, res: Response) => {
+	const { id } = req.body;
+	let campeonatos = await Campeonatos.getCampeonatos(id);
+
+	campeonatos
+		? res.status(200).send(campeonatos)
+		: res.status(400).send({ message: "Erro ao listar campeonatos!" });
+};

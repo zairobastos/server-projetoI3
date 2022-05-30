@@ -46,6 +46,22 @@ export const Campeonatos = {
 			});
 		return cad;
 	},
+	getCampeonatos: async (id: string) => {
+		let lista: Object[] = [];
+		const campeonato = await prisma.campeonato
+			.findMany({
+				where: {
+					userId: id,
+				},
+			})
+			.then((campeonato) => {
+				return campeonato;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return campeonato;
+	},
 };
 
 type Partida = {
