@@ -5,6 +5,9 @@ const router = Router();
 
 router.get("/", Times.paginaTimes);
 router.post("/cadastrar", Times.cadastrarTime);
+
 router.post("/cadastrar/jogador", Times.cadastrarJogador);
+router.post("/atualizar/jogador", Times.atualizarJogador);
+router.delete("/deletar/jogador/:id", Times.deletarJogador);
 
 export default router;
