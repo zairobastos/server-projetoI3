@@ -6,6 +6,10 @@ type Time = {
 	escudo: string;
 };
 
+interface updateTime extends Time {
+	id: string;
+}
+
 type Jogador = {
 	nome: string;
 	posicao: string;
@@ -35,6 +39,41 @@ export const Times = {
 				return false;
 			});
 		return cad;
+	},
+	deleteTime: async (id: string) => {
+		let del = await prisma.time
+			.delete({
+				where: {
+					id,
+				},
+			})
+			.then((time) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return del;
+	},
+	updateTime: async ({ id, nome, abreviacao, escudo }: updateTime) => {
+		let upd = await prisma.time
+			.update({
+				where: {
+					id,
+				},
+				data: {
+					nome,
+					abreviacao,
+					escudo,
+				},
+			})
+			.then((time) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return upd;
 	},
 	setJogador: async ({ nome, posicao, numero, imagem, timeId }: Jogador) => {
 		let cad = await prisma.jogador

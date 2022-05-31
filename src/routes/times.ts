@@ -5,6 +5,8 @@ const router = Router();
 
 router.get("/", Times.paginaTimes);
 router.post("/cadastrar", Times.cadastrarTime);
+router.post("/update", Times.updateTime);
+router.delete("/delete/:id", Times.deleteTime);
 
 router.post("/cadastrar/jogador", Times.cadastrarJogador);
 router.post("/atualizar/jogador", Times.atualizarJogador);

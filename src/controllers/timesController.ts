@@ -13,6 +13,27 @@ export const cadastrarTime = async (req: Request, res: Response) => {
 		: res.status(400).send({ message: "Erro ao cadastrar time!" });
 };
 
+export const deleteTime = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let time = await Times.deleteTime(id);
+
+	time
+		? res.status(200).send({ message: "Time deletado com sucesso!" })
+		: res.status(400).send({ message: "Erro ao deletar time!" });
+};
+
+export const updateTime = async (req: Request, res: Response) => {
+	const { id, nome, abreviacao, escudo } = req.body;
+	let atualizado = await Times.updateTime({ id, nome, abreviacao, escudo });
+
+	atualizado
+		? res
+				.status(200)
+				.send({ message: "Time atualizado com sucesso!" })
+				.send(atualizado)
+		: res.status(400).send({ message: "Erro ao atualizar time!" });
+};
+
 export const cadastrarJogador = async (req: Request, res: Response) => {
 	const { nome, posicao, numero, imagem, timeId } = req.body;
 	let jogador = await Times.setJogador({
