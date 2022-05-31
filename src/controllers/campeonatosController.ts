@@ -56,3 +56,33 @@ export const listarCampeonatos = async (req: Request, res: Response) => {
 		? res.status(200).send(campeonatos)
 		: res.status(400).send({ message: "Erro ao listar campeonatos!" });
 };
+
+export const deleteCampeonato = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let campeonato = await Campeonatos.deleteCampeonato(id);
+
+	campeonato
+		? res.status(200).send({ message: "Campeonato deletado com sucesso!" })
+		: res.status(400).send({ message: "Erro ao deletar campeonato!" });
+};
+
+export const updateCampeonato = async (req: Request, res: Response) => {
+	const { id, nome, descricao, logo, premiacao, qtdTimes, situacao, userId } =
+		req.body;
+	let atualizado = await Campeonatos.updateCampeonato({
+		id,
+		nome,
+		descricao,
+		logo,
+		premiacao,
+		qtdTimes,
+		situacao,
+		userId,
+	});
+
+	atualizado
+		? res
+				.status(200)
+				.send({ message: "Campeonato atualizado com sucesso!" })
+		: res.status(400).send({ message: "Erro ao atualizar campeonato!" });
+};

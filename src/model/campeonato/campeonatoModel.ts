@@ -15,6 +15,9 @@ enum Opcao {
 	cancelado = "CANCELADO",
 	aberto = "ABERTO",
 }
+interface updateCampeonato extends Campeonato {
+	id: string;
+}
 
 export const Campeonatos = {
 	setCampeonato: async ({
@@ -61,6 +64,54 @@ export const Campeonatos = {
 				return false;
 			});
 		return campeonato;
+	},
+	deleteCampeonato: async (id: string) => {
+		let deletado = await prisma.campeonato
+			.delete({
+				where: {
+					id,
+				},
+			})
+			.then((campeonato) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return deletado;
+	},
+	updateCampeonato: async ({
+		id,
+		descricao,
+		logo,
+		nome,
+		premiacao,
+		qtdTimes,
+		situacao,
+		userId,
+	}: updateCampeonato) => {
+		let atualizado = await prisma.campeonato
+			.update({
+				where: {
+					id,
+				},
+				data: {
+					nome,
+					descricao,
+					logo,
+					premiacao,
+					qtdTimes,
+					situacao,
+					userId,
+				},
+			})
+			.then((campeonato) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return atualizado;
 	},
 };
 
