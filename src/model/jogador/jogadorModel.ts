@@ -76,4 +76,19 @@ export const Jogador = {
 			});
 		return cad;
 	},
+	getJogador: async (timeId: string) => {
+		let jogador = await prisma.jogador
+			.findMany({
+				where: {
+					timeId,
+				},
+			})
+			.then((jogador) => {
+				return jogador;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return jogador;
+	},
 };

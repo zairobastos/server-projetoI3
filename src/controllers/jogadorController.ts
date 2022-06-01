@@ -36,3 +36,11 @@ export const deletarJogador = async (req: Request, res: Response) => {
 		? res.status(201).send({ message: "Jogador deletado com sucesso!" })
 		: res.status(400).send({ message: "Erro ao deletar jogador!" });
 };
+
+export const listarJogadores = async (req: Request, res: Response) => {
+	const { timeId } = req.body;
+	let jogadores = await Jogador.getJogador(timeId);
+	jogadores
+		? res.status(201).send({ jogadores })
+		: res.status(400).send({ message: "Erro ao listar jogadores!" });
+};
