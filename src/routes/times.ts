@@ -8,8 +8,4 @@ router.post("/cadastrar", Times.cadastrarTime);
 router.post("/update", Times.updateTime);
 router.delete("/delete/:id", Times.deleteTime);
 
-router.post("/cadastrar/jogador", Times.cadastrarJogador);
-router.post("/atualizar/jogador", Times.atualizarJogador);
-router.delete("/deletar/jogador/:id", Times.deletarJogador);
-
 export default router;

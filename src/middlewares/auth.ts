@@ -6,7 +6,8 @@ const Auth = {
 		if (sucess) {
 			next();
 		} else {
-			res.status(403).send({ message: "Usuário não autorizado!" });
+			console.log("Usuário não autorizado!");
+			res.redirect("http://localhost:3333/");
 		}
 	},
 };
