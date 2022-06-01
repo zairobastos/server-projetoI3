@@ -63,3 +63,11 @@ export const updatePartida = async (req: Request, res: Response) => {
 		? res.status(200).send({ message: "Partida atualizada com sucesso!" })
 		: res.status(400).send({ message: "Erro ao atualizar partida!" });
 };
+
+export const listarPartidas = async (req: Request, res: Response) => {
+	const { campeonatoId } = req.body;
+	let partidas = await Partidas.listarPartidas(campeonatoId);
+	partidas
+		? res.status(200).send(partidas)
+		: res.status(400).send({ message: "Erro ao listar partidas!" });
+};

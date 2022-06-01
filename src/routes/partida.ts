@@ -6,5 +6,6 @@ const router = Router();
 router.post("/criarPartida", Partida.criarPartida);
 router.post("/updatePartida", Partida.updatePartida);
 router.delete("/deletePartida/:id", Partida.deletePartida);
+router.post("/listarPartidas", Partida.listarPartidas);
 
 export default router;

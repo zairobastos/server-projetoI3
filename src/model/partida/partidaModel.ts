@@ -96,4 +96,19 @@ export const Partidas = {
 			});
 		return atualizado;
 	},
+	listarPartidas: async (campeonatoId: string) => {
+		let lista = await prisma.partida
+			.findMany({
+				where: {
+					campeonatoId,
+				},
+			})
+			.then((partida) => {
+				return partida;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return lista;
+	},
 };
