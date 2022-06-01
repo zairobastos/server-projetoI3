@@ -4,7 +4,8 @@ import "dotenv/config";
 export const emailConfirmacao = (nome: string, email: string) => {
 	const transport = nodemailer.createTransport({
 		host: process.env.EMAIL_HOST,
-		port: 2525,
+		port: 465,
+		secure: true,
 		auth: {
 			user: process.env.EMAIL_USER,
 			pass: process.env.EMAIL_PASS,
@@ -15,6 +16,8 @@ export const emailConfirmacao = (nome: string, email: string) => {
 			from: "Equipe Apito Final <zairobastos@gmail.com>",
 			to: `${nome} <${email}>`,
 			subject: "Bem vindo ao Apito Final",
+			text: `Olá ${nome}, seja bem vindo ao Apito Final!
+Agradecemos por se cadastrar no nosso site.`,
 		},
 		(err, info) => {
 			if (err) {
