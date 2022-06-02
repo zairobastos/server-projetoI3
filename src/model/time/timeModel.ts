@@ -4,6 +4,7 @@ type Time = {
 	nome: string;
 	abreviacao: string;
 	escudo: string;
+	campeonatoId: string;
 };
 
 interface updateTime extends Time {
@@ -11,13 +12,14 @@ interface updateTime extends Time {
 }
 
 export const Times = {
-	setTime: async ({ nome, abreviacao, escudo }: Time) => {
+	setTime: async ({ nome, abreviacao, escudo, campeonatoId }: Time) => {
 		let cad = await prisma.time
 			.create({
 				data: {
 					nome,
 					abreviacao,
 					escudo,
+					campeonatoId,
 				},
 			})
 			.then((time) => {
@@ -43,7 +45,13 @@ export const Times = {
 			});
 		return del;
 	},
-	updateTime: async ({ id, nome, abreviacao, escudo }: updateTime) => {
+	updateTime: async ({
+		id,
+		nome,
+		abreviacao,
+		escudo,
+		campeonatoId,
+	}: updateTime) => {
 		let upd = await prisma.time
 			.update({
 				where: {
@@ -53,6 +61,7 @@ export const Times = {
 					nome,
 					abreviacao,
 					escudo,
+					campeonatoId,
 				},
 			})
 			.then((time) => {

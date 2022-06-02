@@ -21,10 +21,11 @@ model Usuario {
 }
 
 model Time {
-    id         String  @id @default(uuid())
-    nome       String
-    abreviacao String
-    escudo     String?
+    id           String  @id @default(uuid())
+    nome         String
+    abreviacao   String
+    escudo       String?
+    campeonatoId String
 
     @@map("times")
 }
@@ -41,14 +42,15 @@ model Jogador {
 }
 
 model Campeonato {
-    id        String  @id @default(uuid())
-    nome      String
-    descricao String
-    premiacao String
-    logo      String?
-    situacao  Opcao   @default(ABERTO)
-    qtdTimes  Int
-    userId    String?
+    id             String         @id @default(uuid())
+    nome           String
+    descricao      String
+    premiacao      String
+    logo           String?
+    situacao       Opcao          @default(ABERTO)
+    qtdTimes       Int
+    userId         String?
+    tipoCampeonato TipoCampeonato @default(PONTOS)
 
     @@map("campeonatos")
 }
@@ -58,6 +60,11 @@ enum Opcao {
     ABERTO
     FINALIZADO
     CANCELADO
+}
+
+enum TipoCampeonato {
+    PONTOS
+    PLAYOFF
 }
 
 model Partida {
@@ -72,4 +79,20 @@ model Partida {
     placar2      Int
 
     @@map("partidas")
+}
+
+model campeonatoPontosCorridos {
+    id           String @id @default(uuid())
+    campeonatoId String
+    timeId       String
+    pontos       Int
+    jogos        Int
+    vitorias     Int
+    empates      Int
+    derrotas     Int
+    golsPro      Int
+    golsContra   Int
+    saldoGols    Int
+
+    @@map("pontosCorridos")
 }
