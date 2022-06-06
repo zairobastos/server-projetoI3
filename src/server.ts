@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express, { Request, Response } from "express";
+import cors from "cors";
 import mainRoutes from "./routes/index";
 import campeonatoRoutes from "./routes/campeonatos";
 import timesRoutes from "./routes/times";
@@ -9,6 +10,7 @@ import jogadorRoutes from "./routes/jogador";
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
