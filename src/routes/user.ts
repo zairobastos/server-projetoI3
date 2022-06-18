@@ -14,4 +14,6 @@ rota.post("/atualizar", User.updateUsuario);
 
 rota.get("/confirmar/:id", User.confirmarCadastro);
 
+rota.post("/recuperar", User.recuperarSenha);
+
 export default rota;

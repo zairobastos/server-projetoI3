@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { emailRecuperarSenha } from "../model/mails/emailRecuperarSenha";
 import { User } from "../model/users/userModel";
 
 export const user = async (req: Request, res: Response) => {
@@ -48,4 +49,16 @@ export const confirmarCadastro = async (req: Request, res: Response) => {
 	usuario
 		? res.status(200).send(res.redirect("http://localhost:3000/login"))
 		: res.status(400).send({ message: "Erro ao confirmar usuário!" });
+};
+
+export const recuperarSenha = async (req: Request, res: Response) => {
+	const { email } = req.body;
+	let usuario = await User.seacherEmail(email);
+	if (usuario) {
+		emailRecuperarSenha(usuario as any);
+		res.status(200).redirect("http://localhost:3000/login");
+		return true;
+	} else {
+		res.status(400).send({ message: "Email não cadastrado!" });
+	}
 };
