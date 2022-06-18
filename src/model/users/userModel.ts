@@ -30,7 +30,7 @@ export const User = {
 				},
 			})
 			.then((usuario) => {
-				emailConfirmacao(usuario.nome, usuario.email);
+				emailConfirmacao(usuario.nome, usuario.email, usuario.id);
 				return true;
 			})
 			.catch((err) => {
@@ -91,6 +91,24 @@ export const User = {
 					email,
 					senha: criptografar(senha),
 					imagem,
+				},
+			})
+			.then((usuario) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return usuario;
+	},
+	setAtivo: async (id: string) => {
+		let usuario = await prisma.usuario
+			.update({
+				where: {
+					id,
+				},
+				data: {
+					ativo: true,
 				},
 			})
 			.then((usuario) => {

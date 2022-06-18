@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import "dotenv/config";
 
-export const emailConfirmacao = (nome: string, email: string) => {
+export const emailConfirmacao = (nome: string, email: string, id: string) => {
 	const transport = nodemailer.createTransport({
 		host: process.env.EMAIL_HOST,
 		port: 465,
@@ -18,6 +18,7 @@ export const emailConfirmacao = (nome: string, email: string) => {
 			subject: "Bem vindo ao Apito Final",
 			text: `Olá ${nome}, seja bem vindo ao Apito Final!
 Agradecemos por se cadastrar no nosso site.`,
+			html: `<a href="http://localhost:3333/usuario/confirmar/${id}"> Confirme seu cadastro</a>`,
 		},
 		(err, info) => {
 			if (err) {

@@ -41,3 +41,11 @@ export const updateUsuario = async (req: Request, res: Response) => {
 		? res.status(200).send({ message: "Usuário atualizado com sucesso!" })
 		: res.status(400).send({ message: "Erro ao atualizar usuário!" });
 };
+
+export const confirmarCadastro = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let usuario = await User.setAtivo(id);
+	usuario
+		? res.status(200).send(res.redirect("http://localhost:3000/login"))
+		: res.status(400).send({ message: "Erro ao confirmar usuário!" });
+};

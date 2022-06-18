@@ -12,4 +12,6 @@ rota.delete("/deletar/:id", User.deletarUsuario);
 
 rota.post("/atualizar", User.updateUsuario);
 
+rota.get("/confirmar/:id", User.confirmarCadastro);
+
 export default rota;
