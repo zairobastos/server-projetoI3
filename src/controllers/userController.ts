@@ -9,9 +9,7 @@ export const user = async (req: Request, res: Response) => {
 	} else {
 		let usuario = await User.setUser({ nome, email, senha, imagem });
 		usuario
-			? res
-					.status(201)
-					.send({ message: "Usuário cadastrado com sucesso!" })
+			? res.status(201).send(res.redirect("http://localhost:3000/login"))
 			: res.status(400).send({ message: "Erro ao cadastrar usuário!" });
 	}
 };

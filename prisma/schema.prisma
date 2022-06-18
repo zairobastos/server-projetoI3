@@ -21,11 +21,10 @@ model Usuario {
 }
 
 model Time {
-    id           String  @id @default(uuid())
-    nome         String
-    abreviacao   String
-    escudo       String?
-    campeonatoId String
+    id         String  @id @default(uuid())
+    nome       String
+    abreviacao String
+    escudo     String?
 
     @@map("times")
 }

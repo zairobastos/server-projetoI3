@@ -1,5 +1,5 @@
 import "dotenv/config";
-import express, { Request, Response } from "express";
+import express, { Request, Response, ErrorRequestHandler } from "express";
 import cors from "cors";
 import mainRoutes from "./routes/index";
 import campeonatoRoutes from "./routes/campeonatos";
@@ -7,6 +7,7 @@ import timesRoutes from "./routes/times";
 import usuarioRoutes from "./routes/user";
 import partidaRoutes from "./routes/partida";
 import jogadorRoutes from "./routes/jogador";
+import { MulterError } from "multer";
 
 const app = express();
 
@@ -24,6 +25,21 @@ app.use("/jogador", jogadorRoutes);
 app.use((req: Request, res: Response) => {
 	res.status(404).send("Página não encontrada");
 });
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+	res.status(400); // 400 Bad Request
+
+	if (err instanceof MulterError) {
+		res.json({
+			error: err.code,
+		});
+	} else {
+		res.json({
+			error: err.message,
+		});
+	}
+};
+app.use(errorHandler);
 
 app.listen(process.env.PORT || 3000, () => {
 	console.log("Servidor HTTP funcionando!");
