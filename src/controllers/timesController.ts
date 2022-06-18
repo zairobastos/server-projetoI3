@@ -18,7 +18,11 @@ export const cadastrarTime = async (req: Request, res: Response) => {
 
 		await unlink(req.file.path);
 		const img = `./public/images/${filename}`;
-		let time = await Times.setTime({ nome, abreviacao, escudo: img });
+		let time = await Times.setTime({
+			nome,
+			abreviacao: abreviacao.toUpperCase(),
+			escudo: img,
+		});
 		time
 			? res.status(201).send(res.redirect("http://localhost:3000/times"))
 			: res.status(400).send({ message: "Erro ao cadastrar time!" });
