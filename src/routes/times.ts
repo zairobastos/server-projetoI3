@@ -10,6 +10,7 @@ const upload = multer({
 			"image/png",
 			"image/jpg",
 			"image/svg+xml",
+			"image/svg",
 		];
 		if (allowedTypes.includes(file.mimetype)) {
 			cb(null, true);

@@ -6,12 +6,14 @@ export const user = async (req: Request, res: Response) => {
 	const { nome, email, senha, imagem } = req.body;
 	let user = await User.seacherEmail(email);
 	if (user) {
-		res.status(400).send({ message: "Email já utilizado!" });
+		res.send({ message: "Email já utilizado!" }).status(400);
 	} else {
 		let usuario = await User.setUser({ nome, email, senha, imagem });
 		usuario
-			? res.status(201).send(res.redirect("http://localhost:3000/login"))
-			: res.status(400).send({ message: "Erro ao cadastrar usuário!" });
+			? res
+					.status(201)
+					.send({ message: "Usuário cadastrado com sucesso!" })
+			: res.send({ message: "Erro ao cadastrar usuário!" }).status(400);
 	}
 };
 
@@ -56,9 +58,9 @@ export const recuperarSenha = async (req: Request, res: Response) => {
 	let usuario = await User.seacherEmail(email);
 	if (usuario) {
 		emailRecuperarSenha(usuario as any);
-		res.status(200).redirect("http://localhost:3000/login");
+		res.status(200).send({ message: "Email enviado com sucesso!" });
 		return true;
 	} else {
-		res.status(400).send({ message: "Email não cadastrado!" });
+		res.send({ message: "Email não cadastrado!" }).status(400);
 	}
 };

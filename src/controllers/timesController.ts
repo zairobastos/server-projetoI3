@@ -9,7 +9,7 @@ export const paginaTimes = (req: Request, res: Response) => {
 
 export const cadastrarTime = async (req: Request, res: Response) => {
 	const { nome, abreviacao, escudo } = req.body;
-
+	console.log(req.file);
 	if (req.file) {
 		const filename = `${req.file.filename}.png`;
 		await sharp(req.file.path)
@@ -24,12 +24,12 @@ export const cadastrarTime = async (req: Request, res: Response) => {
 			escudo: img,
 		});
 		time
-			? res.status(201).send(res.redirect("http://localhost:3000/times"))
-			: res.status(400).send({ message: "Erro ao cadastrar time!" });
+			? res.status(201).send({ message: "Time cadastrado com sucesso!" })
+			: res.send({ message: "Erro ao cadastrar time!" }).status(400);
 	} else {
-		res.status(400).send({
+		res.send({
 			message: "Não foi possível cadastrar o time",
-		});
+		}).status(400);
 	}
 };
 
