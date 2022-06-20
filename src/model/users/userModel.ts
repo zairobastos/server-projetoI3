@@ -2,7 +2,7 @@ import { prisma } from "../../prisma";
 import { criptografar } from "../criptografia/criptografia";
 import { emailConfirmacao } from "../mails/emailConfirmacao";
 
-type Usuario = {
+export type Usuario = {
 	nome: string;
 	email: string;
 	senha: string;
@@ -39,16 +39,20 @@ export const User = {
 		return cad;
 	},
 	login: async ({ email, senha }: Entrar) => {
-		let usuario = await prisma.usuario.findFirst({
-			where: {
-				email,
-				senha: criptografar(senha),
-			},
-		});
-		if (usuario) {
-			return true;
-		}
-		return false;
+		let usuario = await prisma.usuario
+			.findFirst({
+				where: {
+					email,
+					senha: criptografar(senha),
+				},
+			})
+			.then((usuario) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return usuario;
 	},
 	seacherEmail: async (email: string) => {
 		let usuario = await prisma.usuario
@@ -108,6 +112,21 @@ export const User = {
 					id,
 				},
 				data: {
+					ativo: true,
+				},
+			})
+			.then((usuario) => {
+				return true;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return usuario;
+	},
+	isAtivo: async (email: string) => {
+		let usuario = await prisma.usuario
+			.findFirst({
+				where: {
 					ativo: true,
 				},
 			})

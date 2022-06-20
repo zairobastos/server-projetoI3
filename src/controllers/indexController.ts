@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
 
 export const paginaInicial = (req: Request, res: Response) => {
-	res.send("Hello Word");
+	res.send("Página Inicial");
 };

@@ -3,6 +3,6 @@ import * as Inicial from "../controllers/indexController";
 
 const router = Router();
 
-router.get("/", Inicial.paginaInicial);
+router.get("/paginaInicial", Inicial.paginaInicial);
 
 export default router;

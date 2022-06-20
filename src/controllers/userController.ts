@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { emailRecuperarSenha } from "../model/mails/emailRecuperarSenha";
 import { User } from "../model/users/userModel";
+import JWT from "jsonwebtoken";
 
 export const user = async (req: Request, res: Response) => {
 	const { nome, email, senha, imagem } = req.body;
@@ -20,10 +21,28 @@ export const user = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
 	const { email, senha } = req.body;
 	if (email && senha) {
-		let usuario = await User.login({ email, senha });
-		usuario
-			? res.status(200).send({ message: "Usuário logado com sucesso!" })
-			: res.status(400).send({ message: "Email ou senha inválidos!" });
+		let usuario: any = await User.login({ email, senha });
+		console.log(usuario);
+		if (usuario) {
+			let isAtivo = await User.isAtivo(email);
+			if (isAtivo) {
+				const token = JWT.sign(
+					{
+						id: usuario.id,
+						email: usuario.email,
+					},
+					process.env.JWT_SECRET as string
+				);
+				res.send({
+					message: "Login realizado com sucesso!",
+					token,
+				}).status(200);
+			} else {
+				res.json({
+					message: "Para fazer login, ative a sua conta!",
+				}).status(400);
+			}
+		}
 	} else {
 		res.status(400).send({ message: "Está faltando algum dado!" });
 	}
