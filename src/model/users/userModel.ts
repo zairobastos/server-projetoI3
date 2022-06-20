@@ -47,7 +47,7 @@ export const User = {
 				},
 			})
 			.then((usuario) => {
-				return true;
+				return usuario;
 			})
 			.catch((err) => {
 				return false;

@@ -22,8 +22,7 @@ export const login = async (req: Request, res: Response) => {
 	const { email, senha } = req.body;
 	if (email && senha) {
 		let usuario: any = await User.login({ email, senha });
-		console.log(usuario);
-		if (usuario) {
+		if (usuario != null) {
 			let isAtivo = await User.isAtivo(email);
 			if (isAtivo) {
 				const token = JWT.sign(
@@ -42,6 +41,10 @@ export const login = async (req: Request, res: Response) => {
 					message: "Para fazer login, ative a sua conta!",
 				}).status(400);
 			}
+		} else {
+			res.json({
+				message: "Email ou senha incorretos!",
+			}).status(400);
 		}
 	} else {
 		res.status(400).send({ message: "Está faltando algum dado!" });
