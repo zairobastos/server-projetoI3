@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { emailRecuperarSenha } from "../model/mails/emailRecuperarSenha";
 import { User } from "../model/users/userModel";
 import JWT from "jsonwebtoken";
+import exp from "constants";
 
 export const user = async (req: Request, res: Response) => {
 	const { nome, email, senha, imagem } = req.body;
@@ -23,8 +24,9 @@ export const login = async (req: Request, res: Response) => {
 	if (email && senha) {
 		let usuario: any = await User.login({ email, senha });
 		if (usuario != null) {
-			let isAtivo = await User.isAtivo(email);
-			if (isAtivo) {
+			let isAtivo = await User.isAtivo(usuario.email);
+			console.log(isAtivo);
+			if (isAtivo != null) {
 				const token = JWT.sign(
 					{
 						id: usuario.id,

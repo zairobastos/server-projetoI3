@@ -127,11 +127,12 @@ export const User = {
 		let usuario = await prisma.usuario
 			.findFirst({
 				where: {
+					email,
 					ativo: true,
 				},
 			})
 			.then((usuario) => {
-				return true;
+				return usuario;
 			})
 			.catch((err) => {
 				return false;
