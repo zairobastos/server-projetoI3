@@ -34,6 +34,7 @@ export const User = {
 				return true;
 			})
 			.catch((err) => {
+				console.error(err);
 				return false;
 			});
 		return cad;

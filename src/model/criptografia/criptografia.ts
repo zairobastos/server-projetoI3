@@ -1,16 +1,6 @@
-import Crypto from "crypto";
-
-const DADOS_CRIPTOGRAFAR = {
-	algoritmo: process.env.CRIPTO_ALGO as string,
-	segredo: process.env.CRIPTO_SECRET as string,
-	tipo: process.env.CRIPTO_TIPO,
-};
+import CryptoJS from "crypto-js";
 
 export const criptografar = (senha: string) => {
-	const cipher = Crypto.createCipher(
-		DADOS_CRIPTOGRAFAR.algoritmo,
-		DADOS_CRIPTOGRAFAR.segredo
-	);
-	cipher.update(senha);
-	return cipher.final(DADOS_CRIPTOGRAFAR.tipo as any);
+	let crypto = CryptoJS.SHA256(senha);
+	return crypto.toString(CryptoJS.enc.Base64);
 };
