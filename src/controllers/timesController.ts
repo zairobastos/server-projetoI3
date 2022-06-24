@@ -14,17 +14,17 @@ export const cadastrarTime = async (req: Request, res: Response) => {
 		const filename = `${req.file.filename}.png`;
 		await sharp(req.file.path)
 			.toFormat("png")
-			.toFile(`./public/images/${filename}`);
+			.toFile(`../ApitoFinal-front/public/images/${filename}`);
 
 		await unlink(req.file.path);
-		const img = `./public/images/${filename}`;
+		const img = `images/${filename}`;
 		let time = await Times.setTime({
 			nome,
 			abreviacao: abreviacao.toUpperCase(),
 			escudo: img,
 		});
 		time
-			? res.status(201).send({ message: "Time cadastrado com sucesso!" })
+			? res.redirect("http://localhost:3000/times")
 			: res.send({ message: "Erro ao cadastrar time!" }).status(400);
 	} else {
 		res.send({
@@ -54,4 +54,14 @@ export const updateTime = async (req: Request, res: Response) => {
 	atualizado
 		? res.status(200).send({ message: "Time atualizado com sucesso!" })
 		: res.status(400).send({ message: "Erro ao atualizar time!" });
+};
+
+export const listarTimes = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let times: any = await Times.getTimes(id as string);
+	if (times) {
+		res.status(200).send(times);
+	} else {
+		res.status(400).send({ message: "Erro ao listar times!" });
+	}
 };

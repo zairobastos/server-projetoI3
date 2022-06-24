@@ -10,6 +10,10 @@ interface updateTime extends Time {
 	id: string;
 }
 
+interface getTime extends Time {
+	userId: string;
+}
+
 export const Times = {
 	setTime: async ({ nome, abreviacao, escudo }: Time) => {
 		let cad = await prisma.time
@@ -62,5 +66,20 @@ export const Times = {
 				return false;
 			});
 		return upd;
+	},
+	getTimes: async (id: string) => {
+		let times = await prisma.time
+			.findMany({
+				where: {
+					userId: id,
+				},
+			})
+			.then((time) => {
+				return time;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return times;
 	},
 };

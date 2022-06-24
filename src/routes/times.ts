@@ -26,5 +26,6 @@ router.get("/", Times.paginaTimes);
 router.post("/cadastrar", upload.single("escudo"), Times.cadastrarTime);
 router.post("/update", Times.updateTime);
 router.delete("/delete/:id", Times.deleteTime);
+router.get("/buscar/:id", Times.listarTimes);
 
 export default router;

@@ -27,6 +27,7 @@ model Time {
     nome       String
     abreviacao String
     escudo     String?
+    userId     String?
 
     @@map("times")
 }
