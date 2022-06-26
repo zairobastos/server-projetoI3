@@ -8,8 +8,7 @@ export const paginaTimes = (req: Request, res: Response) => {
 };
 
 export const cadastrarTime = async (req: Request, res: Response) => {
-	const { nome, abreviacao, escudo } = req.body;
-	console.log(req.file);
+	const { nome, abreviacao, userId } = req.body;
 	if (req.file) {
 		const filename = `${req.file.filename}.png`;
 		await sharp(req.file.path)
@@ -22,6 +21,7 @@ export const cadastrarTime = async (req: Request, res: Response) => {
 			nome,
 			abreviacao: abreviacao.toUpperCase(),
 			escudo: img,
+			userId,
 		});
 		time
 			? res.redirect("http://localhost:3000/times")

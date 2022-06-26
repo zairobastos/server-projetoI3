@@ -4,24 +4,22 @@ type Time = {
 	nome: string;
 	abreviacao: string;
 	escudo: string;
+	userId?: string;
 };
 
 interface updateTime extends Time {
 	id: string;
 }
 
-interface getTime extends Time {
-	userId: string;
-}
-
 export const Times = {
-	setTime: async ({ nome, abreviacao, escudo }: Time) => {
+	setTime: async ({ nome, abreviacao, escudo, userId }: Time) => {
 		let cad = await prisma.time
 			.create({
 				data: {
 					nome,
 					abreviacao,
 					escudo,
+					userId,
 				},
 			})
 			.then((time) => {
