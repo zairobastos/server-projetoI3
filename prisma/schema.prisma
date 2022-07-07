@@ -48,6 +48,8 @@ model Campeonato {
     nome           String
     descricao      String
     premiacao      String
+    dataInicio     String
+    dataFim        String
     logo           String?
     situacao       Opcao          @default(ABERTO)
     qtdTimes       Int

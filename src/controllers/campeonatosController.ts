@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import { Campeonatos } from "../model/campeonato/campeonatoModel";
+import sharp from "sharp";
+import { unlink } from "fs/promises";
 
 export const paginaCampeonato = (req: Request, res: Response) => {
 	res.send("Campeonatos");
 };
 
 export const criarCampeonato = async (req: Request, res: Response) => {
-	const { nome, descricao, premiacao, logo, situacao, qtdTimes, userId } =
-		req.body;
-	let campeonato = await Campeonatos.setCampeonato({
+	const {
 		nome,
 		descricao,
 		premiacao,
@@ -16,10 +16,39 @@ export const criarCampeonato = async (req: Request, res: Response) => {
 		situacao,
 		qtdTimes,
 		userId,
-	});
-	campeonato
-		? res.status(201).send({ message: "Campeonato criado com sucesso!" })
-		: res.status(400).send({ message: "Erro ao criar campeonato!" });
+		tipoCampeonato,
+		dataInicio,
+		dataFim,
+	} = req.body;
+	console.log(req.file);
+	if (req.file) {
+		const filename = `${req.file.filename}.png`;
+		await sharp(req.file.path)
+			.toFormat("png")
+			.toFile(
+				`../ApitoFinal-front/public/images/campeonatos/${filename}`
+			);
+
+		await unlink(req.file.path);
+		const img = `images/campeonatos/${filename}`;
+		let campeonato = await Campeonatos.setCampeonato({
+			nome,
+			descricao,
+			premiacao,
+			logo: img,
+			situacao,
+			qtdTimes,
+			userId,
+			tipoCampeonato,
+			dataInicio,
+			dataFim,
+		});
+		campeonato
+			? res.redirect("http://localhost:3000/campeonato")
+			: res.status(400).send({ message: "Erro ao criar campeonato!" });
+	} else {
+		console.log("Error");
+	}
 };
 
 export const listarCampeonatos = async (req: Request, res: Response) => {
@@ -41,8 +70,18 @@ export const deleteCampeonato = async (req: Request, res: Response) => {
 };
 
 export const updateCampeonato = async (req: Request, res: Response) => {
-	const { id, nome, descricao, logo, premiacao, qtdTimes, situacao, userId } =
-		req.body;
+	const {
+		id,
+		nome,
+		descricao,
+		logo,
+		premiacao,
+		qtdTimes,
+		situacao,
+		userId,
+		dataFim,
+		dataInicio,
+	} = req.body;
 	let atualizado = await Campeonatos.updateCampeonato({
 		id,
 		nome,
@@ -52,6 +91,8 @@ export const updateCampeonato = async (req: Request, res: Response) => {
 		qtdTimes,
 		situacao,
 		userId,
+		dataFim,
+		dataInicio,
 	});
 
 	atualizado

@@ -8,6 +8,8 @@ type Campeonato = {
 	situacao: Opcao;
 	qtdTimes: number;
 	userId: string;
+	dataInicio: string;
+	dataFim: string;
 };
 enum Opcao {
 	iniciado = "INICIADO",
@@ -19,6 +21,14 @@ interface updateCampeonato extends Campeonato {
 	id: string;
 }
 
+interface cadCampeonato extends Campeonato {
+	tipoCampeonato: tipo;
+}
+enum tipo {
+	PONTOS = "PONTOS",
+	PLAYOFF = "PLAYOFF",
+}
+
 export const Campeonatos = {
 	setCampeonato: async ({
 		nome,
@@ -28,7 +38,10 @@ export const Campeonatos = {
 		situacao,
 		qtdTimes,
 		userId,
-	}: Campeonato) => {
+		tipoCampeonato,
+		dataInicio,
+		dataFim,
+	}: cadCampeonato) => {
 		let cad = await prisma.campeonato
 			.create({
 				data: {
@@ -37,14 +50,19 @@ export const Campeonatos = {
 					premiacao,
 					logo,
 					situacao,
-					qtdTimes,
+					qtdTimes: parseInt(qtdTimes as any),
 					userId,
+					tipoCampeonato,
+					dataInicio,
+					dataFim,
 				},
 			})
 			.then((campeonato) => {
+				console.log(campeonato);
 				return true;
 			})
 			.catch((err) => {
+				console.error(err);
 				return false;
 			});
 		return cad;
