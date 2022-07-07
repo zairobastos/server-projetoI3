@@ -28,7 +28,7 @@ router.post(
 	upload.single("logo"),
 	Campeonato.criarCampeonato
 );
-router.post("/listarCampeonatos", Campeonato.listarCampeonatos);
+router.get("/listarCampeonatos/:id", Campeonato.listarCampeonatos);
 router.post("/updateCampeonato", Campeonato.updateCampeonato);
 router.delete("/deleteCampeonato/:id", Campeonato.deleteCampeonato);
 

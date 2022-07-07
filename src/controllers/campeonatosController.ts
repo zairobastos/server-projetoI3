@@ -52,7 +52,7 @@ export const criarCampeonato = async (req: Request, res: Response) => {
 };
 
 export const listarCampeonatos = async (req: Request, res: Response) => {
-	const { id } = req.body;
+	const { id } = req.params;
 	let campeonatos = await Campeonatos.getCampeonatos(id);
 
 	campeonatos
