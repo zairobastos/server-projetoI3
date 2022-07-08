@@ -60,6 +60,15 @@ export const listarCampeonatos = async (req: Request, res: Response) => {
 		: res.status(400).send({ message: "Erro ao listar campeonatos!" });
 };
 
+export const getBuscar = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let campeonato = await Campeonatos.busca(id);
+
+	campeonato
+		? res.status(200).send(campeonato)
+		: res.status(400).send({ message: "Erro ao buscar campeonato!" });
+};
+
 export const deleteCampeonato = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	let campeonato = await Campeonatos.deleteCampeonato(id);

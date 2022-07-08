@@ -31,5 +31,6 @@ router.post(
 router.get("/listarCampeonatos/:id", Campeonato.listarCampeonatos);
 router.post("/updateCampeonato", Campeonato.updateCampeonato);
 router.delete("/deleteCampeonato/:id", Campeonato.deleteCampeonato);
+router.get("/buscar/:id", Campeonato.getBuscar);
 
 export default router;

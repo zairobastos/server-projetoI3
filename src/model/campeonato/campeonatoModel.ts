@@ -83,6 +83,22 @@ export const Campeonatos = {
 			});
 		return campeonato;
 	},
+	busca: async (id: string) => {
+		const campeonato = await prisma.campeonato
+			.findMany({
+				where: {
+					id: id,
+				},
+			})
+			.then((campeonatos) => {
+				return campeonatos;
+			})
+			.catch((err) => {
+				console.error(err);
+				return false;
+			});
+		return campeonato;
+	},
 	deleteCampeonato: async (id: string) => {
 		let deletado = await prisma.campeonato
 			.delete({
