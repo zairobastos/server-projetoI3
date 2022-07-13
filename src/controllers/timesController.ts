@@ -65,3 +65,14 @@ export const listarTimes = async (req: Request, res: Response) => {
 		res.status(400).send({ message: "Erro ao listar times!" });
 	}
 };
+
+export const listarTimesId = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let times: any = await Times.getTimesId(id as string);
+	console.log(times)
+	if (times) {
+		res.status(200).send(times);
+	} else {
+		res.status(400).send({ message: "Erro ao listar times!" });
+	}
+};

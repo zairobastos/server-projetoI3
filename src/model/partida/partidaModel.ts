@@ -111,4 +111,17 @@ export const Partidas = {
 			});
 		return lista;
 	},
+	listarTodasPartidas: async () => {
+		let lista = await prisma.partida
+			.findMany({
+				take : 6,
+			})
+			.then((partida) => {
+				return partida;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return lista;
+	},
 };

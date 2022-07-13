@@ -71,3 +71,10 @@ export const listarPartidas = async (req: Request, res: Response) => {
 		? res.status(200).send(partidas)
 		: res.status(400).send({ message: "Erro ao listar partidas!" });
 };
+
+export const listarTodasPartidas = async (req: Request, res: Response) => {
+	let partidas = await Partidas.listarTodasPartidas();
+	partidas
+		? res.status(200).send(partidas)
+		: res.status(400).send({ message: "Erro ao listar partidas!" });
+};
