@@ -7,6 +7,7 @@ import timesRoutes from "./routes/times";
 import usuarioRoutes from "./routes/user";
 import partidaRoutes from "./routes/partida";
 import jogadorRoutes from "./routes/jogador";
+import authRoutes from "./routes/auth";
 import { MulterError } from "multer";
 
 const app = express();
@@ -21,6 +22,7 @@ app.use("/times", timesRoutes);
 app.use("/usuario", usuarioRoutes);
 app.use("/partida", partidaRoutes);
 app.use("/jogador", jogadorRoutes);
+app.use("/auth", authRoutes);
 
 app.use((req: Request, res: Response) => {
 	res.status(404).send("Página não encontrada");
