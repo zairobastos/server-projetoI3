@@ -20,3 +20,7 @@ export const Authorization = (req: Request, res: Response) => {
 		}
 	}
 };
+
+export const Auth = (req: Request, res: Response) => {
+	res.send("teste");
+};
