@@ -43,12 +43,11 @@ export const deleteTime = async (req: Request, res: Response) => {
 };
 
 export const updateTime = async (req: Request, res: Response) => {
-	const { id, nome, abreviacao, escudo } = req.body;
+	const { id, nome, abreviacao } = req.body;
 	let atualizado = await Times.updateTime({
 		id,
 		nome,
 		abreviacao,
-		escudo,
 	});
 
 	atualizado
@@ -67,7 +66,7 @@ export const listarTimes = async (req: Request, res: Response) => {
 };
 
 export const listarTimesId = async (req: Request, res: Response) => {
-	const { id,userId } = req.params;
+	const { id, userId } = req.params;
 	let times: any = await Times.getTimesId(id as string, userId as string);
 	if (times) {
 		res.status(200).send(times);

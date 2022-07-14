@@ -3,7 +3,7 @@ import { prisma } from "../../prisma";
 type Time = {
 	nome: string;
 	abreviacao: string;
-	escudo: string;
+	escudo?: string;
 	userId?: string;
 };
 
@@ -45,7 +45,7 @@ export const Times = {
 			});
 		return del;
 	},
-	updateTime: async ({ id, nome, abreviacao, escudo }: updateTime) => {
+	updateTime: async ({ id, nome, abreviacao }: updateTime) => {
 		let upd = await prisma.time
 			.update({
 				where: {
@@ -54,7 +54,6 @@ export const Times = {
 				data: {
 					nome,
 					abreviacao,
-					escudo,
 				},
 			})
 			.then((time) => {
