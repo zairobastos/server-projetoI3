@@ -71,3 +71,11 @@ export const listarJogadorUser = async (req: Request, res: Response) => {
 		? res.status(201).send(jogador)
 		: res.status(400).send({ message: "Erro ao listar jogador!" });
 };
+
+export const listarJogadorId = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let jogador = await Jogador.getJogadorId(id);
+	jogador
+		? res.status(201).send(jogador)
+		: res.status(400).send({ message: "Erro ao listar jogador!" });
+};

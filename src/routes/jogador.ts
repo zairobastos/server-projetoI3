@@ -27,5 +27,6 @@ router.post("/atualizar", Jogador.atualizarJogador);
 router.delete("/deletar/:id", Jogador.deletarJogador);
 router.get("/listar/:timeId", Jogador.listarJogadores);
 router.get("/listarUser/:userId", Jogador.listarJogadorUser);
+router.get("/listarId/:id", Jogador.listarJogadorId);
 
 export default router;
