@@ -80,12 +80,12 @@ export const Times = {
 			});
 		return times;
 	},
-	getTimesId: async (id: string) => {
-		console.log(id)
+	getTimesId: async (id: string, userId: string) => {
 		let times = await prisma.time
-			.findUnique({
+			.findMany({
 				where: {
 					id,
+					userId,
 				},
 			})
 			.then((time) => {

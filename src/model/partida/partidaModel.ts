@@ -8,6 +8,7 @@ type Partida = {
 	time2Id: string;
 	placar1: number;
 	placar2: number;
+	userId?: string;
 };
 
 interface updatePartida extends Partida {
@@ -24,6 +25,7 @@ export const Partidas = {
 		time2Id,
 		placar1,
 		placar2,
+		userId,
 	}: Partida) => {
 		let cad = await prisma.partida
 			.create({
@@ -36,6 +38,7 @@ export const Partidas = {
 					time2Id,
 					placar1,
 					placar2,
+					userId,
 				},
 			})
 			.then((partida) => {
@@ -99,6 +102,7 @@ export const Partidas = {
 	listarPartidas: async (campeonatoId: string) => {
 		let lista = await prisma.partida
 			.findMany({
+				take: 6,
 				where: {
 					campeonatoId,
 				},
@@ -111,10 +115,13 @@ export const Partidas = {
 			});
 		return lista;
 	},
-	listarTodasPartidas: async () => {
+	listarTodasPartidas: async (id: string) => {
 		let lista = await prisma.partida
 			.findMany({
 				take : 6,
+				where:{
+					userId:id,
+				},
 			})
 			.then((partida) => {
 				return partida;

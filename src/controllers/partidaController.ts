@@ -10,6 +10,7 @@ export const criarPartida = async (req: Request, res: Response) => {
 		time2Id,
 		placar1,
 		placar2,
+		userId,
 	} = req.body;
 	let partida = await Partidas.setPartida({
 		data,
@@ -20,6 +21,7 @@ export const criarPartida = async (req: Request, res: Response) => {
 		time2Id,
 		placar1,
 		placar2,
+		userId,
 	});
 	partida
 		? res.status(201).send({ message: "Partida criada com sucesso!" })
@@ -46,6 +48,7 @@ export const updatePartida = async (req: Request, res: Response) => {
 		time2Id,
 		placar1,
 		placar2,
+		userId,
 	} = req.body;
 	let atualizado = await Partidas.updatePartida({
 		id,
@@ -57,6 +60,7 @@ export const updatePartida = async (req: Request, res: Response) => {
 		time2Id,
 		placar1,
 		placar2,
+		userId,
 	});
 
 	atualizado
@@ -73,7 +77,8 @@ export const listarPartidas = async (req: Request, res: Response) => {
 };
 
 export const listarTodasPartidas = async (req: Request, res: Response) => {
-	let partidas = await Partidas.listarTodasPartidas();
+	const {id} = req.params;
+	let partidas = await Partidas.listarTodasPartidas(id as string);
 	partidas
 		? res.status(200).send(partidas)
 		: res.status(400).send({ message: "Erro ao listar partidas!" });

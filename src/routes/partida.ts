@@ -7,6 +7,6 @@ router.post("/criarPartida", Partida.criarPartida);
 router.post("/updatePartida", Partida.updatePartida);
 router.delete("/deletePartida/:id", Partida.deletePartida);
 router.post("/listarPartidas", Partida.listarPartidas);
-router.get("/listarTodasPartidas", Partida.listarPartidas);
+router.get("/listarTodasPartidas/:id", Partida.listarTodasPartidas);
 
 export default router;

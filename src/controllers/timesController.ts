@@ -67,9 +67,8 @@ export const listarTimes = async (req: Request, res: Response) => {
 };
 
 export const listarTimesId = async (req: Request, res: Response) => {
-	const { id } = req.params;
-	let times: any = await Times.getTimesId(id as string);
-	console.log(times)
+	const { id,userId } = req.params;
+	let times: any = await Times.getTimesId(id as string, userId as string);
 	if (times) {
 		res.status(200).send(times);
 	} else {

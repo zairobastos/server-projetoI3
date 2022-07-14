@@ -81,6 +81,7 @@ model Partida {
     time2Id      String
     placar1      Int
     placar2      Int
+    userId       String?
 
     @@map("partidas")
 }
