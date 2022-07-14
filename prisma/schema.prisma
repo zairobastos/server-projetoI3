@@ -39,6 +39,7 @@ model Jogador {
     numero  String
     imagem  String?
     timeId  String?
+    userId  String?
 
     @@map("jogadores")
 }
@@ -72,7 +73,7 @@ enum TipoCampeonato {
 }
 
 model Partida {
-    id           String @id @default(uuid())
+    id           String  @id @default(uuid())
     data         String
     horario      String
     local        String
