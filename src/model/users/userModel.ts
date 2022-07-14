@@ -155,4 +155,21 @@ export const User = {
 			});
 		return usuario;
 	},
+
+	varificaSenhaUsuario: async (senha: string, id: string) => {
+		let usuario = await prisma.usuario
+			.findMany({
+				where:{
+					id,
+					senha: criptografar(senha),
+				},
+			})
+			.then((usuario) => {
+				return usuario;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return usuario;
+	},
 };

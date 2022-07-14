@@ -98,3 +98,14 @@ export const retornaNomeUsuario = async (req: Request, res: Response) => {
 		res.status(400).send({ message: "Erro ao retornar nome!"});
 	}
 };
+
+export const verificaSenha = async (req: Request, res: Response) => {
+	const { senha,id } = req.params;
+	console.log(senha,id)
+	let usuario: any = await User.varificaSenhaUsuario(senha,id);
+	if(usuario){
+		res.status(200).send(usuario);
+	}else{
+		res.status(400).send({ message: "Erro ao retornar nome!"});
+	}
+};
