@@ -26,5 +26,6 @@ router.post("/cadastrar", upload.single("imagem"), Jogador.cadastrarJogador);
 router.post("/atualizar", Jogador.atualizarJogador);
 router.delete("/deletar/:id", Jogador.deletarJogador);
 router.get("/listar/:timeId", Jogador.listarJogadores);
+router.get("/listarUser/:userId", Jogador.listarJogadorUser);
 
 export default router;

@@ -6,6 +6,7 @@ type Jogador = {
 	numero: string;
 	imagem: string;
 	timeId: string;
+	userId: string;
 };
 
 interface updateJogador extends Jogador {
@@ -13,7 +14,14 @@ interface updateJogador extends Jogador {
 }
 
 export const Jogador = {
-	setJogador: async ({ nome, posicao, numero, imagem, timeId }: Jogador) => {
+	setJogador: async ({
+		nome,
+		posicao,
+		numero,
+		imagem,
+		timeId,
+		userId,
+	}: Jogador) => {
 		let cad = await prisma.jogador
 			.create({
 				data: {
@@ -22,6 +30,7 @@ export const Jogador = {
 					numero,
 					imagem,
 					timeId,
+					userId,
 				},
 			})
 			.then((jogador) => {
@@ -81,6 +90,21 @@ export const Jogador = {
 			.findMany({
 				where: {
 					timeId,
+				},
+			})
+			.then((jogador) => {
+				return jogador;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return jogador;
+	},
+	getJogadorUser: async (userId: string) => {
+		let jogador = await prisma.jogador
+			.findMany({
+				where: {
+					userId,
 				},
 			})
 			.then((jogador) => {

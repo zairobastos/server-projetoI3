@@ -4,7 +4,7 @@ import sharp from "sharp";
 import { unlink } from "fs/promises";
 
 export const cadastrarJogador = async (req: Request, res: Response) => {
-	const { nome, posicao, numero, imagem, timeId } = req.body;
+	const { nome, posicao, numero, imagem, timeId, userId } = req.body;
 	console.log(req.file);
 	if (req.file) {
 		const filename = `${req.file.filename}.png`;
@@ -20,6 +20,7 @@ export const cadastrarJogador = async (req: Request, res: Response) => {
 			numero,
 			imagem: img,
 			timeId,
+			userId,
 		});
 		jogador
 			? res.redirect("http://localhost:3000/jogadores")
@@ -32,7 +33,7 @@ export const cadastrarJogador = async (req: Request, res: Response) => {
 };
 
 export const atualizarJogador = async (req: Request, res: Response) => {
-	const { id, nome, posicao, numero, imagem, timeId } = req.body;
+	const { id, nome, posicao, numero, imagem, timeId, userId } = req.body;
 	let jogador = await Jogador.updateJogador({
 		id,
 		nome,
@@ -40,6 +41,7 @@ export const atualizarJogador = async (req: Request, res: Response) => {
 		numero,
 		imagem,
 		timeId,
+		userId,
 	});
 	jogador
 		? res.status(201).send({ message: "Jogador atualizado com sucesso!" })
@@ -56,9 +58,16 @@ export const deletarJogador = async (req: Request, res: Response) => {
 
 export const listarJogadores = async (req: Request, res: Response) => {
 	const { timeId } = req.params;
-	console.log(timeId);
 	let jogadores = await Jogador.getJogador(timeId);
 	jogadores
 		? res.status(201).send(jogadores)
 		: res.status(400).send({ message: "Erro ao listar jogadores!" });
+};
+
+export const listarJogadorUser = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let jogador = await Jogador.getJogadorUser(id);
+	jogador
+		? res.status(201).send(jogador)
+		: res.status(400).send({ message: "Erro ao listar jogador!" });
 };
