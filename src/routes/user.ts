@@ -15,4 +15,6 @@ rota.get("/confirmar/:id", User.confirmarCadastro);
 
 rota.post("/recuperar", User.recuperarSenha);
 
+rota.get("/retornaNome/:id", User.retornaNomeUsuario);
+
 export default rota;

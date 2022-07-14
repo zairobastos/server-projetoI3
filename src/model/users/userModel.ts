@@ -140,4 +140,19 @@ export const User = {
 			});
 		return usuario;
 	},
+	nomeUsuario: async (id: string) => {
+		let usuario = await prisma.usuario
+			.findUnique({
+				where:{
+					id,
+				},
+			})
+			.then((usuario) => {
+				return usuario;
+			})
+			.catch((err) => {
+				return false;
+			});
+		return usuario;
+	},
 };

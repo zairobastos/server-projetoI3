@@ -88,3 +88,13 @@ export const recuperarSenha = async (req: Request, res: Response) => {
 		res.send({ message: "Email não cadastrado!" }).status(400);
 	}
 };
+
+export const retornaNomeUsuario = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	let usuario: any = await User.nomeUsuario(id);
+	if(usuario){
+		res.status(200).send(usuario);
+	}else{
+		res.status(400).send({ message: "Erro ao retornar nome!"});
+	}
+};
